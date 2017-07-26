@@ -1,0 +1,38 @@
+<h2>BatchOrderDetails</h2>
+
+<div ng-controller="BatchOrdersController" ng-init="getBatchOrderById()">
+
+    <div>
+        <a href="#/batchOrders?refresh=false"><b>BACK</b></a>
+    </div>
+
+    BatchOrderId : {{selectedBatchOrder.batchOrderId}}<br>
+    noOfTransactions : {{selectedBatchOrder.noOfTransactions}}<br>
+    date : {{selectedBatchOrder.date| date:'dd-MMM-yyyy HH:mm:ss'}}<br>
+    dueDate : {{selectedBatchOrder.dueDate| date:'dd-MMM-yyyy HH:mm:ss'}}<br>
+    alarmedDate : {{selectedBatchOrder.alarmedDate| date:'dd-MMM-yyyy HH:mm:ss'}}<br>
+    BatchOrderParameters : {{selectedBatchOrder.batchParameters}}
+    <br>
+
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Message</th>
+
+        </tr>
+        <tr ng-repeat="event in selectedBatchOrder.batchOrderEvents">
+            <td>{{event.state}}</td>
+            <td>{{event.date| date:'dd-MMM-yyyy HH:mm:ss'}}</td>
+            <td>
+                {{event.message}}
+            </td>
+        </tr>
+    </table>
+
+</div> 
+
+
+
+

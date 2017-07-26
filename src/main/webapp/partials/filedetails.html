@@ -1,0 +1,123 @@
+<html>
+ <head></head>
+ <body>
+   <div ng-controller="FilesController">
+	<h4 style="color: rgb(0, 81, 131);">File Id :
+		<div ng-if="fileDetails.mtLink"><a ng-click="showMT(fileDetails.mtLink.href)" href=""><b>{{fileDetails.fileID}}</b></a></div>
+		<div ng-if="!fileDetails.mtLink">{{fileDetails.fileID}}</div>			
+	</h4>
+    <table class="searchresult">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; width: 500px;">
+            <b style="color: rgb(0, 81, 131);">Date</b>: {{formatDate(fileDetails.bookDate,'DD.MM.YYYY')}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">File type</b>: {{fileDetails.fileTypeDescription}} ({{fileDetails.fileType}})
+            <br>
+            <b style="color: rgb(0, 81, 131);">Service ID</b>: {{fileDetails.serviceID}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Name</b>: {{fileDetails.serviceIDName}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">File name</b>: {{fileDetails.transmFileName}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Reference</b>: {{fileDetails.fileReference}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Number of batches</b>: {{fileDetails.numberSubfiles}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Sum of transactions</b>: {{fileDetails.sumTransactions}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">File info</b>: {{fileDetails.fileInfo}}
+            <br>
+          </td>
+         <td style="vertical-align: top; width: 500px;">
+            <b style="color: rgb(0, 81, 131);">Communication method</b>: {{fileDetails.communicationMethod}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Direction</b>: {{fileDetails.direction}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">CN user</b>: {{fileDetails.cnUser}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Sender ID</b>: {{fileDetails.senderID}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Sender name</b>: {{fileDetails.senderName}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Signer ID</b>: {{fileDetails.signerID}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Signer name</b>: {{fileDetails.signerName}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">BICOrBEI</b>: {{fileDetails.bicorbei}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Envelope timestamp</b>: {{fileDetails.envTimestamp}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Execution serial</b>: {{fileDetails.execSerial}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Software ID</b>: {{fileDetails.softwareId}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Transmission ended</b>: {{formatDate(fileDetails.transmissionEnded ,'DD.MM.YYYY HH:mm')}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Transmission status</b>: {{fileDetails.transmissionStatus}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Information</b>: {{fileDetails.information}}
+            <br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 style="color: rgb(0, 81, 131);">Technical details:</h4>
+    <table class="searchresult">
+      <tbody>
+        <tr> 
+          <td style="vertical-align: top;">
+            <b style="color: rgb(0, 81, 131);">Internal transaction ID</b>: {{fileDetails.internalTxnID}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Transmission ID</b>: {{fileDetails.transmID}} 
+            <br>
+            <b style="color: rgb(0, 81, 131);">CN Transmission ID</b>: {{fileDetails.cnTransID}} 
+            <br>
+            <b style="color: rgb(0, 81, 131);">Calculated hash</b>: {{fileDetails.calcHash}} 
+            <br>
+            <b style="color: rgb(0, 81, 131);">Document key</b>: {{fileDetails.genDocKey}} 
+            <br>
+            <b style="color: rgb(0, 81, 131);">File name</b>: {{fileDetails.fileName}} 
+            <br>
+            <b style="color: rgb(0, 81, 131);">Last updated status</b>: {{fileDetails.lastUpdatedStatus}} 
+            <br>
+            <b style="color: rgb(0, 81, 131);">Last updated time</b>: {{formatDate(fileDetails.lastUpdatedTime ,'DD.MM.YYYY HH:mm')}}
+            <br>
+            <b style="color: rgb(0, 81, 131);">Creation time</b>: {{formatDate(fileDetails.creationTime ,'DD.MM.YYYY HH:mm')}}
+            <br>
+          </td>  
+        </tr>
+      </tbody>
+    </table>
+
+    <div ng-if="fileDetails.fileID">
+      <button ng-click="getFileHistoryDetails(fileDetails.fileID)">Show FileHistory</button>
+
+      <table class="searchresult">
+
+        <tr>
+          <th>Date</th>
+          <th>User</th>
+          <th>Communication method</th>
+          <th>Action</th>
+      
+        </tr>
+        <tr ng-repeat="fhd in fileHistoryDetails | orderBy:'fhTimestamp':true">
+          <td>{{formatDate(fhd.fhTimestamp,'DD.MM.YYYY HH:mm')}}</td>
+          <td>{{fhd.cnUser}}</td>
+          <td>{{fhd.communicationMethod}}</td>
+          <td>{{fhd.procStep}}</td>
+     
+        </tr>
+      </table>
+
+    </div>
+
+  </div>
+
+ </body>
+</html>
+
+
+

@@ -1,0 +1,33 @@
+<h2>ScheduleJobDetails</h2>
+
+<div ng-controller="ScheduleJobsController" ng-init="getScheduleJobById()">
+    
+    <div>
+        <a href="#/scheduleJobs"><b>BACK</b></a>
+    </div>
+
+    ScheduleJobId : {{selectedScheduleJob.id}}<br>
+    CronTotal : {{selectedScheduleJob.cronTotal}}<br>
+    Name : {{selectedScheduleJob.name}}<br>
+    Description : {{selectedScheduleJob.description}}<br>
+    <br>
+
+    <h4>Arguments</h4>
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+
+        </tr>
+        <tr ng-repeat="entry in selectedScheduleJob.arguments.entry">
+            <td>{{entry.key}}</td>
+            <td>{{entry.value}}</td>
+        </tr>
+    </table>
+
+</div> 
+
+
+
+

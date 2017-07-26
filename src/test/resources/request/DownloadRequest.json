@@ -1,0 +1,16 @@
+{
+    "fileIDs" : [ "20000124111", "0000013001", "0000013778" ],
+    "trackID": "548445SD41",
+    "source": "eBridge",
+    "fileType": "NDCAPXMLO",
+    "senderID": "2738987295",
+    "senderName": "FENNEL EBRIDGE",
+    "transmFileName": "Corporate Access Payments feedback _20151201.ZIP",
+    "transmissionSize": "6424",
+    "transmissionEnded": "2015-11-13T12:25:11.000Z",
+    "communicationMethod": "CN File Transfer",
+    "cnUser": "2677138032CN",
+    "transmissionStatus": 0,
+    "direction": "OUT",
+    "action": "D"
+}

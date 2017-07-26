@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Login</title>
+</head>
+<body>
+    <form id="loginForm" action="j_security_check" method="post">
+        <h1>Please Login</h1>
+        <input type="text" name="j_username" id="j_username" size="25" placeholder="Username" required="required"/>
+        <input type="password" name="j_password" id="j_password" size="25" placeholder="Password" required="required"/>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

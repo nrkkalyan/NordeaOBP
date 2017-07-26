@@ -1,0 +1,236 @@
+/* td { 
+    border: 10px; 
+}
+
+table {
+    table-layout:fixed;
+    width:100%;
+    border:1px;
+    word-wrap:break-word;
+    font-size: 84%;
+}
+
+ */
+ 
+ 
+ 
+ 
+ html {
+  color: #000000;
+  font-family: Verdana, Helv, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 1.0em;
+  width: 100%;
+}
+
+body {
+  margin: 10px;
+  padding: 0;
+}
+
+h1 {
+  font-size: 1.4em;
+  margin: 5px 0 10px;
+}
+
+h2 {
+  font-size: 1.2em;
+  margin: 5px 0 10px;
+}
+
+h2.bar {
+  font-family: Verdana;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 5px 10px;
+  margin: 0;
+}
+
+p {
+  line-height: 1.3em;
+  margin: 0 0 10px;
+}
+
+p.infoText {
+  font-style: italic;
+  margin-top: 30px;
+}
+
+button {
+  margin: 0px 0 0px 0px;
+  font-family: Verdana;
+  font-size: 8px;
+  background-color: #e5eaef;
+  border-color: #779abc;
+  border-style: solid;
+  border-width: 1px 2px 2px 1px;
+}
+
+
+input[type='file'] {
+  width: 20em;
+}
+
+button.smallbutton {
+  padding: 1px 3px;
+  font-size: 9px;
+  width: 5em;
+}
+
+button:hover {
+  background-color: #ccd8de;
+}
+
+a, a:visited {
+  color: #000000;
+}
+
+table.searchresult {
+  width: 100%;
+  margin: 0 0 20px !important;
+  border: 1px solid #779abc;
+  border-collapse: collapse;
+}
+
+table.searchresult tfoot tr td {
+    padding-top: 5px;
+    text-align: left;
+}
+
+table.searchresult th, table.searchresult td {
+  padding: 3px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 0.8em;
+  background-color: #ffffff;
+}
+
+tr.alt > td {
+  background-color: #e5eaef;
+}
+
+table.searchresult th {
+  font-weight: bold;
+  background-color: #e5eaef;
+}
+
+table.searchresult a:link, table.searchresult a:active, table.searchresult a:visited {
+  text-decoration: underline;
+  color: #000036;
+  white-space: nowrap;
+}
+
+caption a {
+    font-size: 0.9em;
+}
+
+.fixedLabelRow {
+  margin: 0.8em 0em;
+}
+
+.fixedLabelRow label {
+  width: 10em;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+  display: table-row;
+}
+
+.bar {
+  font-family: Verdana;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 5px 10px;
+  text-align: left;
+  background-color: #ccd8de;
+}
+
+.outline {
+  padding: 5px 0;
+  border: 1px solid #779abc;
+}
+
+.formContainer {
+  width: 100%;
+}
+
+.buttonContainer {
+  text-align: right;
+  margin: 10px 0;
+}
+
+.top {
+  background-color: #005284;
+}
+
+.header {
+  font-family: Arial;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.error, .info {
+  margin-bottom: 10px;
+  font-size: 90%;
+  line-height: 90%;
+  background-color: #FFFFCC;
+  border: 1px solid #CCCC66;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.error td, .info td {
+  padding: 5px;
+}
+
+.rejected {
+  color: #c1004f;
+  font-weight: bold;
+}
+
+.fileName {
+  font-size: 0.8em;
+  font-style: italic;
+  padding-top: 5px;
+}
+
+table.searchresult td.txInfStsTableContainer {
+    padding: 10px;
+    font-size: 1em;
+}
+ 
+ 
+ 
+ 
+ 
+ 
+  
+.green {
+    background-color: green;
+    color: white;
+}
+
+.red {
+    background-color: red;
+    color: white;
+}
+
+.yellow {
+    background-color: yellow;
+    color: black;
+}
+
+.blue {
+    background-color: #005580;
+    color: white;
+}

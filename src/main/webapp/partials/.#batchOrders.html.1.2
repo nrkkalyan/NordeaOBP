@@ -1,0 +1,64 @@
+<h2>BatchOrders</h2>
+
+<div ng-controller="BatchOrdersController" ng-init="searchBatchOrders()">
+
+    <p class="text-info">
+        <b>{{batchOrders.page.totalNoOfItems}}</b> {{statusMessage}} 
+    </p>
+
+    <div id="container">
+        <form ng-submit="searchBatchOrders()">
+            <input class="textBox" placeholder="FROM-DATE"  type="text" ng-model="fromDate" datepicker />
+            <input class="textBox" placeholder="TO-DATE"  type="text" ng-model="toDate" datepicker />
+            <input class="textBox" placeholder="BATCH-ID"  type="text" ng-model="batchOrderId" />
+            <input class="textBox" placeholder="JOB-ID"  type="text" ng-model="jobId" />
+            <button>Search</button> 
+            <button ng-click="reset()">Clear</button> 
+        </form>
+
+
+    </div>
+
+    <div  class="datagrid">
+
+        <b ng-show="batchOrders.page.totalNumberOfPages > 0">{{batchOrders.page.currentPage}}/{{batchOrders.page.totalNumberOfPages}}</b> <br>   
+        <button ng-show="batchOrders.page.previousPage > 0" ng-click="searchBatchOrders(batchOrders.page.previousPage)"><b>Previous</b></button>
+        <button ng-show="batchOrders.page.nextPage > 0" ng-click="searchBatchOrders(batchOrders.page.nextPage)"><b>Next</b></button>
+        <table class="table table-bordered">
+
+            <tr>
+                <th>JobId</th>
+                <th>BatchOrder Id</th>
+                <th>No Of Transactions</th>
+                <th>Date</th>
+                <th>Status</th>
+
+            </tr>
+            <tr ng-repeat="batchOrder in batchOrders.restBatchOrders">
+                <td>{{batchOrder.jobId}}</td><!-- FIXME: JOBID -->
+                <td>
+                    <a href="#/batchOrderDetails/{{batchOrder.batchOrderId}}"><b>{{batchOrder.batchOrderId}}</b></a>
+                </td>
+                <td>{{batchOrder.noOfTransactions}}</td>
+                <td>{{batchOrder.date| date:'dd-MMM-yyyy HH:mm:ss'}}</td>
+                <td>
+                    <table>
+                        <tr ng-repeat="event in batchOrder.batchOrderEvents">
+                            <td ng-class="{yellow:event.state === 'SENT',green:event.state === 'COMPLETED',red:event.state === 'FAILED',blue:event.state === 'SCHEDULED'}">{{event.state}}</td>
+                        </tr>
+
+                    </table>
+                </td>
+
+            </tr>
+        </table>
+
+    </div>
+
+</div> 
+
+
+
+
+
+
