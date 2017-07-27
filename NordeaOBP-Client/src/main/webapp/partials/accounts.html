@@ -1,0 +1,110 @@
+<div ng-controller="AccountsController" >
+<div ng-init="loadFileTypes()">
+	<div class="red" ng-show="errorMessage !='' ">{{errorMessage}}</div>
+	
+	<div>
+
+		<form ng-submit="getAvailableFiles(senderId, signerId, dateFrom, dateTo, action, fileType, serviceId)">
+
+			<table class="searchresult">
+				<caption class="bar">
+					<h2>File list</h2>
+				</caption>
+				<tr>
+					<th> ID</th>
+					<th>Status</th>
+					<th>File type</th>
+					<th>Signer ID</th>
+					<th>Service ID</th>
+					<th>Start date</th>
+					<th>End date</th>
+					<th>&nbsp;</th>
+				</tr>
+				<tr>
+					<td><input id="fl_senderid" class="textBox" placeholder="Sender ID" type="text" ng-model="senderId" required /></td>
+					<td><select id="fl_action" ng-model="action">
+							<option value="">All</option>
+							<option value="N">New</option>
+							<option value="D">Downloaded</option>
+							<option value="U">Uploaded</option>
+					</select></td>
+
+					<td><select id="fl_filetype" ng-model="fileType" ng-change="onFileTypeComboBoxChanged(fileType)" required>
+						<option value="">-Select-</option>
+						<option ng-repeat="ft in fileTypes" value="{{ft.fileType}}">{{ft.description}} ({{ft.fileType}})</option>
+					</select></td>
+					<td><input id="fl_signerid" class="textBox" placeholder="Signer ID" type="text" ng-model="signerId" ng-disabled="disableSignerId" /></td>
+					<td><input id="fl_serviceid" class="textBox" placeholder="Service ID" type="text" ng-model="serviceId" ng-disabled="disableServiceId" /></td>
+					<td><input id="fl_fromdate" class="textBox" placeholder="From-Date" type="text" ng-model="dateFrom" datepicker /></td>
+					<td><input id="fl_todate" class="textBox" placeholder="To-Date" type="text" ng-model="dateTo" datepicker /></td>
+					<td><button id="fl_submit" ng-disabled="isDisabled">Search</button></td>
+				</tr>
+
+			</table>
+		</form>
+	</div>
+
+
+	<div>
+		<label>Filter: <input id="fl_searchfilter" ng-model="search.$" type="text" class="textBox"></label>
+		<table id="fl_searchresult" class="searchresult">
+			<tr>
+				<th>Date</th>
+				<th>Info</th>
+				<th>
+		          <div ng-if="showSigner()">Signer ID</div>
+		        </th>
+		        <th>
+		          <div ng-if="showService()">Service ID</div>
+		        </th>
+		        <th>
+		          <div ng-if="showService()">Name</div>
+		        </th>
+				<th>Reference</th>
+				<th>Status</th>
+				<th>Creation time</th>
+				<th>File ID</th>
+
+			</tr>
+			<tr ng-repeat="fileDetail in th.getAvailableFiles | filter:search:strict">
+				<!-- dd.MM.yyyy -->
+				<td>{{fileDetail.bookDate.substring(6,8)+"."+ fileDetail.bookDate.substring(4,6) +"."+fileDetail.bookDate.substring(0,4)}}</td>
+				<td>{{fileDetail.fileInfo}}</td>
+				
+				<td>
+		          <div ng-if="showSigner()">{{fileDetail.signerID}}</div>
+		        </td>
+		        <td>
+		          <div ng-if="showService()">{{fileDetail.serviceID}}</div>
+		        </td>
+		        <td>
+		          <div ng-if="showService()">{{fileDetail.serviceIDName}}</div>
+		        </td>
+				
+				
+				<td>{{fileDetail.fileReference}}</td>
+				<td>
+					<div ng-if="fileDetail.action == 'N'">New</div>
+					<div ng-if="fileDetail.action == 'D'">Downloaded</div>
+					<div ng-if="fileDetail.action == 'U' && fileDetail.transmissionStatus == 0">Accepted</div>
+					<div ng-if="fileDetail.action == 'U' && fileDetail.transmissionStatus == -1">In Progress</div>
+					<div ng-if="fileDetail.action == 'U' && !(fileDetail.transmissionStatus == 0 || fileDetail.transmissionStatus == -1)">Rejected</div>
+				</td>
+				<td>
+					<!-- dd.MM.yyyy hh:mm --> {{fileDetail.creationTime.substring(6,8)+"."+ fileDetail.creationTime.substring(4,6) +"."+fileDetail.creationTime.substring(0,4) +
+					fileDetail.creationTime.substring(8);}}
+				</td>
+				<td><a ng-click="showFileDetails(fileDetail.fileID)" href=""><b>{{fileDetail.fileID}}</b></a></td>
+			</tr>
+		</table>
+
+	</div>
+
+	</div>
+</div>
+
+
+
+
+
+

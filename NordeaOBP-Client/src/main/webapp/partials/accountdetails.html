@@ -1,0 +1,67 @@
+<html>
+	<head></head>
+	<body>
+		<div ng-controller="AccountsController">
+			<h4 style="color: rgb(0, 81, 131);">File Id :{{fileDetails.fileID}} </h4>
+			<table class="searchresult">
+				<tbody>
+					<tr>
+						<td style="vertical-align: top; width: 500px;"><b style="color: rgb(0, 81, 131);">Date</b>: {{formatDate(fileDetails.bookDate,'DD.MM.YYYY')}}
+						<br>
+						<b style="color: rgb(0, 81, 131);">Name</b>: {{fileDetails.serviceIDName}}
+						<br>
+						<b style="color: rgb(0, 81, 131);">Reference</b>: {{fileDetails.fileReference}}
+						<br>
+						</td>
+						<td style="vertical-align: top; width: 500px;"><b style="color: rgb(0, 81, 131);">Information</b>: {{fileDetails.information}}
+						<br>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h4 style="color: rgb(0, 81, 131);">Technical Information:</h4>
+			<table class="searchresult">
+				<tbody>
+					<tr>
+						<td style="vertical-align: top;"><b style="color: rgb(0, 81, 131);">Internal transaction ID</b>: {{fileDetails.internalTxnID}}
+						<br>
+						<b style="color: rgb(0, 81, 131);">Last updated status</b>: {{fileDetails.lastUpdatedStatus}}
+						<br>
+						<b style="color: rgb(0, 81, 131);">Last updated time</b>: {{formatDate(fileDetails.lastUpdatedTime ,'DD.MM.YYYY HH:mm')}}
+						<br>
+						<b style="color: rgb(0, 81, 131);">Creation time</b>: {{formatDate(fileDetails.creationTime ,'DD.MM.YYYY HH:mm')}}
+						<br>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div ng-if="fileDetails.fileID">
+				<button ng-click="getFileHistoryDetails(fileDetails.fileID)">
+					Show TransactionHistory
+				</button>
+
+				<table class="searchresult">
+
+					<tr>
+						<th>Date</th>
+						<th>TransactionID</th>
+						<th>Action</th>
+
+					</tr>
+					<tr ng-repeat="fhd in fileHistoryDetails | orderBy:'fhTimestamp':true">
+						<td>{{formatDate(fhd.fhTimestamp,'DD.MM.YYYY HH:mm')}}</td>
+						<td>{{fhd.communicationMethod}}</td>
+						<td>{{fhd.procStep}}</td>
+
+					</tr>
+				</table>
+
+			</div>
+
+		</div>
+
+	</body>
+</html>
+

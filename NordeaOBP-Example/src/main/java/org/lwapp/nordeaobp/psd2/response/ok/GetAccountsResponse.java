@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.lwapp.nordeaobp.psd2.response.common.GroupHeader;
-import org.lwapp.nordeaobp.psd2.response.common.account.AccountDetails;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

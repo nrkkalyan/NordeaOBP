@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<title>Nordea Open Banking Portal</title>
+
+<link rel="stylesheet" href="lib/ngdialog/ngDialog.css" />
+<link rel="stylesheet" href="lib/ngdialog/ngDialog-theme-default.css" />
+
+<link rel='stylesheet' href='css/lib/bootstrap.min.css'> 
+<link rel='stylesheet' href='css/lib/jquery-ui.css'>
+
+<link href="css/lib/jquery-ui.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/app.css" />
+<link rel="stylesheet" href="css/style.css" />
+
+<script src="lib/underscore-min.js"></script>
+<script src='lib/jquery_and_jqueryui.js'></script>
+<script src="lib/moment/moment.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+
+<!-- AngularJS related Javascripts -->
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular/angular-resource.min.js"></script>
+<script src="lib/angular/angular-route.js"></script>
+
+<!-- Javascripts, depends on AngularJs -->
+<script src="lib/ngdialog/ngDialog.js"></script>
+<script src="lib/ngProgress.min.js"></script>
+<script src="lib/angular-cache-buster.js"></script>
+
+
+
+<!-- Application level javascripts -->
+
+<script src="js/app.js"></script>
+<script src="js/directives.js"></script>
+<script src="js/AccountsController.js"></script>
+<script src="js/HttpAccessService.js"></script>
+
+</head>
+<body class="body">
+	<header class="mainHeader">
+		<a href="index.html"> LWAPP</a><b>
+			Nordea Open Banking Portal</b>
+	
+			<!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav nav-tabs">
+					<li class="active"><a href="#accounts">Accounts</a></li>
+                </ul>
+            </div>
+	</header>
+
+
+	<div class="mainContent" id="mainContent">
+		<div class="content">
+			<div class="topContent">
+				<div ng-view></div>
+			</div>
+		</div>
+	</div>
+
+
+	<footer class="mainFooter">
+		<p>Copyright &copy; Lwapp. Maintained by Lwapp Team</p>
+	</footer>
+
+
+<script>
+$(document).ready(function(){
+    $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+    });
+    $('.nav-tabs a').on('shown.bs.tab', function(event){
+        var x = $(event.target).text();         // active tab
+        var y = $(event.relatedTarget).text();  // previous tab
+        $(".act span").text(x);
+        $(".prev span").text(y);
+    });
+});
+</script>
+</body>
+</html>
