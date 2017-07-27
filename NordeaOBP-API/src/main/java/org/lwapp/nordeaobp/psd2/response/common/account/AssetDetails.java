@@ -8,20 +8,21 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import org.lwapp.nordeaobp.psd2.response.common.BaseObject;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class AccountDetails extends BaseObject {
+public class AssetDetails extends BaseObject {
 
     /**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    private List<AccountInfo> accounts;
+    private List<AssetInfo> accounts;
 
-    public List<AccountInfo> getAccounts() {
+    public List<AssetInfo> getAccounts() {
         return this.accounts;
     }
 
-    public void setAccounts(List<AccountInfo> accounts) {
+    public void setAccounts(List<AssetInfo> accounts) {
         this.accounts = accounts;
     }
+
 }

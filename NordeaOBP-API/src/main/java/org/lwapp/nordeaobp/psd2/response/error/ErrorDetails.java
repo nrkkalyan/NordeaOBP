@@ -1,30 +1,23 @@
 package org.lwapp.nordeaobp.psd2.response.error;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.lwapp.nordeaobp.psd2.response.common.BaseObject;
 import org.lwapp.nordeaobp.psd2.response.common.RequestDetails;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ErrorDetails implements Serializable {
+public class ErrorDetails extends BaseObject {
 
     /**
      *
      */
     private static final long serialVersionUID = 1L;
-    private final List<ErrorMessage> failures = new ArrayList<>();
+    private List<ErrorMessage> failures;
     private int httpCode;
     private RequestDetails request;
-
-    public void addFailures(final ErrorMessage em) {
-        this.failures.add(em);
-    }
 
     public List<ErrorMessage> getFailures() {
         return this.failures;
@@ -45,10 +38,9 @@ public class ErrorDetails implements Serializable {
     public void setRequest(final RequestDetails request) {
         this.request = request;
     }
-    
-    @Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,ToStringStyle.JSON_STYLE);
-	}
+
+    public void setFailures(List<ErrorMessage> failures) {
+        this.failures = failures;
+    }
 
 }

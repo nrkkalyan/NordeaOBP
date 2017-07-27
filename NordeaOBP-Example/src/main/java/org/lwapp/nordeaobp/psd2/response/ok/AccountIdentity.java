@@ -17,6 +17,7 @@ public class AccountIdentity implements Serializable {
     private static final long serialVersionUID = 1L;
     private String country;
     private String iban;
+    private AccountIdentity other;
 
     public String getCountry() {
         return this.country;
@@ -35,7 +36,15 @@ public class AccountIdentity implements Serializable {
     }
 
     @Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,ToStringStyle.JSON_STYLE);
-	}
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
+
+    public AccountIdentity getOther() {
+        return other;
+    }
+
+    public void setOther(AccountIdentity other) {
+        this.other = other;
+    }
 }

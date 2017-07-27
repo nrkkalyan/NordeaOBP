@@ -1,15 +1,12 @@
 package org.lwapp.nordeaobp.psd2.response.error;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.lwapp.nordeaobp.psd2.response.common.BaseObject;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ErrorMessage implements Serializable {
+public class ErrorMessage extends BaseObject {
     private static final long serialVersionUID = 1L;
 
     private String code;
@@ -29,11 +26,6 @@ public class ErrorMessage implements Serializable {
 
     public void setDescription(final String description) {
         this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 
     public static class Builder {

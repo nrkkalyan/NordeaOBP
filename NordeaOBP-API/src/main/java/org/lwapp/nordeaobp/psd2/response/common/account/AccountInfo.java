@@ -1,18 +1,15 @@
 package org.lwapp.nordeaobp.psd2.response.common.account;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.lwapp.nordeaobp.psd2.response.common.BaseObject;
 import org.lwapp.nordeaobp.psd2.response.common.ResourceLink;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class AccountInfo implements Serializable {
+public class AccountInfo extends BaseObject {
 
     /**
      *
@@ -21,8 +18,9 @@ public class AccountInfo implements Serializable {
 
     private String id;
     private Account account;
-    private final List<Balance> balances = new ArrayList<>();
-    private final List<ResourceLink> links = new ArrayList<>();
+    private List<Balance> balances;
+    private FinancialInstitution financialInstitution;
+    private List<ResourceLink> links;
 
     public String getId() {
         return this.id;
@@ -48,8 +46,20 @@ public class AccountInfo implements Serializable {
         return this.links;
     }
 
-    @Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,ToStringStyle.JSON_STYLE);
-	}
+    public FinancialInstitution getFinancialInstitution() {
+        return this.financialInstitution;
+    }
+
+    public void setFinancialInstitution(FinancialInstitution financialInstitution) {
+        this.financialInstitution = financialInstitution;
+    }
+
+    public void setBalances(List<Balance> balances) {
+        this.balances = balances;
+    }
+
+    public void setLinks(List<ResourceLink> links) {
+        this.links = links;
+    }
+
 }

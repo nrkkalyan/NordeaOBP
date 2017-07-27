@@ -22,10 +22,6 @@ public class ErrorDetails implements Serializable {
     private int httpCode;
     private RequestDetails request;
 
-    public void addFailures(final ErrorMessage em) {
-        this.failures.add(em);
-    }
-
     public List<ErrorMessage> getFailures() {
         return this.failures;
     }
@@ -45,10 +41,10 @@ public class ErrorDetails implements Serializable {
     public void setRequest(final RequestDetails request) {
         this.request = request;
     }
-    
+
     @Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,ToStringStyle.JSON_STYLE);
-	}
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
 
 }

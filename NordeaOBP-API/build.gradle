@@ -92,6 +92,12 @@ dependencies {
                 'org.apache.commons:commons-lang3:3.4',
                 )
 
+		testCompile 'commons-io:commons-io:2.4'
+		testCompile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
+		testCompile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.25.1'
+		testCompile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.25.1'
+		
+
    	    testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 

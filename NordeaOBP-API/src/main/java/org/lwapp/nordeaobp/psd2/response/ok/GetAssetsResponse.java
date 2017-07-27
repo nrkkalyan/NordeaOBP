@@ -1,18 +1,16 @@
 package org.lwapp.nordeaobp.psd2.response.ok;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.lwapp.nordeaobp.psd2.response.common.BaseObject;
 import org.lwapp.nordeaobp.psd2.response.common.GroupHeader;
+import org.lwapp.nordeaobp.psd2.response.common.account.AssetDetails;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class GetAccountsResponse implements Serializable {
+public class GetAssetsResponse extends BaseObject {
 
     /**
      *
@@ -20,7 +18,7 @@ public class GetAccountsResponse implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private GroupHeader groupHeader;
-    private AccountDetails response;
+    private AssetDetails response;
 
     public GroupHeader getGroupHeader() {
         return this.groupHeader;
@@ -30,17 +28,12 @@ public class GetAccountsResponse implements Serializable {
         this.groupHeader = groupHeader;
     }
 
-    public AccountDetails getResponse() {
+    public AssetDetails getResponse() {
         return this.response;
     }
 
-    public void setResponse(final AccountDetails response) {
+    public void setResponse(final AssetDetails response) {
         this.response = response;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 
 }

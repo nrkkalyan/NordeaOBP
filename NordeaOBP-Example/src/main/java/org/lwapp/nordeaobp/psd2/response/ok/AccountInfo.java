@@ -22,6 +22,7 @@ public class AccountInfo implements Serializable {
     private String id;
     private Account account;
     private final List<Balance> balances = new ArrayList<>();
+    private FinancialInstitution financialInstitution;
     private final List<ResourceLink> links = new ArrayList<>();
 
     public String getId() {
@@ -49,7 +50,15 @@ public class AccountInfo implements Serializable {
     }
 
     @Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,ToStringStyle.JSON_STYLE);
-	}
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
+
+    public FinancialInstitution getFinancialInstitution() {
+        return this.financialInstitution;
+    }
+
+    public void setFinancialInstitution(FinancialInstitution financialInstitution) {
+        this.financialInstitution = financialInstitution;
+    }
 }

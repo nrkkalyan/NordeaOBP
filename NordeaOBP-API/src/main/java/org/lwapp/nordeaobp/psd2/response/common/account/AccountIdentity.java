@@ -1,15 +1,12 @@
 package org.lwapp.nordeaobp.psd2.response.common.account;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.lwapp.nordeaobp.psd2.response.common.BaseObject;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class AccountIdentity implements Serializable {
+public class AccountIdentity extends BaseObject {
 
     /**
      *
@@ -17,6 +14,7 @@ public class AccountIdentity implements Serializable {
     private static final long serialVersionUID = 1L;
     private String country;
     private String iban;
+    private AccountIdentity other;
 
     public String getCountry() {
         return this.country;
@@ -34,8 +32,11 @@ public class AccountIdentity implements Serializable {
         this.iban = iban;
     }
 
-    @Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,ToStringStyle.JSON_STYLE);
-	}
+    public AccountIdentity getOther() {
+        return this.other;
+    }
+
+    public void setOther(AccountIdentity other) {
+        this.other = other;
+    }
 }

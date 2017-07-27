@@ -1,11 +1,6 @@
 package org.lwapp.nordeaobp.psd2.response.common;
 
-import java.io.Serializable;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
-public class ResourceLink implements Serializable {
+public class ResourceLink extends BaseObject {
 
     /**
      *
@@ -28,10 +23,5 @@ public class ResourceLink implements Serializable {
 
     public void setRel(final String rel) {
         this.rel = rel;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 }

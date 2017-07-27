@@ -9,7 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-public class GetAccountsHttpClientExample {
+public class HttpClientExample {
 
     public static void main(final String[] args) throws Exception {
 

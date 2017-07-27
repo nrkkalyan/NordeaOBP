@@ -1,15 +1,10 @@
 package org.lwapp.nordeaobp.psd2.response.common;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 @XmlAccessorType(XmlAccessType.FIELD)
-public class RequestDetails implements Serializable {
+public class RequestDetails extends BaseObject {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,8 +27,4 @@ public class RequestDetails implements Serializable {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
-    }
 }

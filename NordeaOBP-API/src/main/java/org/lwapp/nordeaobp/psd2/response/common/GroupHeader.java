@@ -1,21 +1,17 @@
 package org.lwapp.nordeaobp.psd2.response.common;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 @XmlAccessorType(XmlAccessType.FIELD)
-public class GroupHeader implements Serializable {
+public class GroupHeader extends BaseObject {
 
     private static final long serialVersionUID = 1L;
 
     private String creationDateTime;
     private int httpCode;
     private String messageIdentification;
+    private Pagination messagePagination;
 
     public String getCreationDateTime() {
         return this.creationDateTime;
@@ -41,9 +37,12 @@ public class GroupHeader implements Serializable {
         this.messageIdentification = messageIdentification;
     }
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    public Pagination getMessagePagination() {
+        return this.messagePagination;
+    }
+
+    public void setMessagePagination(Pagination messagePagination) {
+        this.messagePagination = messagePagination;
     }
 
 }

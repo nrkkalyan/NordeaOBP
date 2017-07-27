@@ -12,7 +12,7 @@ import org.lwapp.nordeaobp.psd2.response.common.GroupHeader;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class GetAccountsResponse implements Serializable {
+public class GetAccountResponse implements Serializable {
 
     /**
      *
@@ -20,7 +20,7 @@ public class GetAccountsResponse implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private GroupHeader groupHeader;
-    private AccountDetails response;
+    private AccountInfo response;
 
     public GroupHeader getGroupHeader() {
         return this.groupHeader;
@@ -30,11 +30,11 @@ public class GetAccountsResponse implements Serializable {
         this.groupHeader = groupHeader;
     }
 
-    public AccountDetails getResponse() {
+    public AccountInfo getResponse() {
         return this.response;
     }
 
-    public void setResponse(final AccountDetails response) {
+    public void setResponse(final AccountInfo response) {
         this.response = response;
     }
 

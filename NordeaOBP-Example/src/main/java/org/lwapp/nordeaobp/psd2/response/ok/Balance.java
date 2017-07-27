@@ -1,7 +1,6 @@
 package org.lwapp.nordeaobp.psd2.response.ok;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,14 +16,14 @@ public class Balance implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    private BigDecimal amount;
+    private String amount;
     private String type;
 
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return this.amount;
     }
 
-    public void setAmount(final BigDecimal amount) {
+    public void setAmount(final String amount) {
         this.amount = amount;
     }
 
@@ -35,10 +34,10 @@ public class Balance implements Serializable {
     public void setType(final String type) {
         this.type = type;
     }
-    
+
     @Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,ToStringStyle.JSON_STYLE);
-	}
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
 
 }
