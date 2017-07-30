@@ -8,6 +8,7 @@ import javax.ws.rs.ext.Provider;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 @Provider
 public class MyObjectMapper implements ContextResolver<ObjectMapper> {
@@ -17,7 +18,9 @@ public class MyObjectMapper implements ContextResolver<ObjectMapper> {
     public MyObjectMapper() {
         this.mapper = new ObjectMapper()//
                 .setSerializationInclusion(Include.NON_EMPTY)
-                .setSerializationInclusion(Include.NON_NULL)// Only not null values are considered
+                .setSerializationInclusion(Include.NON_NULL)
+                .enable(SerializationFeature.INDENT_OUTPUT)
+        //                .setDefaultPrettyPrinter(new DefaultPrettyPrinter())// Only not null values are considered
         ;
 
     }

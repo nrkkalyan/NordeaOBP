@@ -2,9 +2,9 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: 'signing'
-group = "org.lwapp.psd2"
+group = "org.lwapp.obp"
 
-version = '1.0.0.M1'
+version = 'v1.RC1'
 
 
 task javadocJar(type: Jar) {

@@ -1,0 +1,59 @@
+{
+  "groupHeader" : {
+    "creationDateTime" : "2017-07-30T16:23:28Z",
+    "httpCode" : 200,
+    "messageIdentification" : "wGjKCyetftk"
+  },
+  "response" : {
+    "accounts" : [ {
+      "id" : "FI6593857450293470-EUR",
+      "account" : {
+        "identification" : {
+          "country" : "FI",
+          "iban" : "FI6593857450293470"
+        },
+        "currency" : "EUR",
+        "owner" : {
+          "name" : "Oy Company AB"
+        },
+        "product" : "SHEKKITILI",
+        "type" : "CACC"
+      },
+      "balances" : [ {
+        "amount" : "123.60",
+        "type" : "ITAV"
+      }, {
+        "amount" : "111.50",
+        "type" : "ITBD"
+      } ],
+      "links" : [ {
+        "href" : "/v1/accounts/FI6593857450293470-EUR",
+        "rel" : "details"
+      }, {
+        "href" : "/v1/accounts/FI6593857450293470-EUR/transactions",
+        "rel" : "transactions"
+      } ]
+    }, {
+      "id" : "FI7473834510057469-EUR",
+      "account" : {
+        "identification" : {
+          "country" : "FI",
+          "iban" : "FI7473834510057469"
+        },
+        "currency" : "EUR",
+        "owner" : {
+          "name" : "Firm OY"
+        },
+        "product" : "SHEKKITILI",
+        "type" : "CACC"
+      },
+      "balances" : [ {
+        "amount" : "1111.50",
+        "type" : "ITBD"
+      }, {
+        "amount" : "1123.60",
+        "type" : "ITAV"
+      } ]
+    } ]
+  }
+}
