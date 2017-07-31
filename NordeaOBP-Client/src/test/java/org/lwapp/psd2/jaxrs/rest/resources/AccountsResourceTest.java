@@ -1,10 +1,12 @@
 package org.lwapp.psd2.jaxrs.rest.resources;
 
 import javax.annotation.ManagedBean;
+import javax.ejb.EJB;
 import javax.ws.rs.core.Response;
 
 import org.hamcrest.Matchers;
 import org.junit.Test;
+import org.lwapp.jaxrs.httpclient.utils.ApacheHttpClient;
 import org.lwapp.psd2.BasicTest;
 
 import com.jayway.restassured.RestAssured;
@@ -13,6 +15,9 @@ import com.jayway.restassured.specification.RequestSpecification;
 
 @ManagedBean
 public class AccountsResourceTest extends BasicTest {
+
+    @EJB
+    private ApacheHttpClient httpClient;
 
     @Override
     public void before() throws Exception {
@@ -23,6 +28,11 @@ public class AccountsResourceTest extends BasicTest {
     @Test
     public void testPing() throws Exception {
         this.createBaseRestAssured().expect().body(Matchers.startsWith("System is ALIVE ")).when().get();
+    }
+
+    @Test
+    public void testGetBanks() throws Exception {
+        this.createBaseRestAssured().expect().body(Matchers.equalTo("[ \"Nordea\", \"Swedbank\" ]")).when().get("banks");
     }
 
     @Test

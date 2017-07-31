@@ -1,9 +1,7 @@
 package org.lwapp.jaxrs.httpclient.utils;
 
-import java.io.Serializable;
-
+import javax.ejb.Stateless;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -15,11 +13,12 @@ import org.lwapp.nordeaobp.psd2.response.error.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Stateless
 public class ApacheHttpClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApacheHttpClient.class);
 
-    public Response get(final String url, Class<? extends Serializable> clazz) throws Exception {
+    public Response get(final String url, Class<?> clazz) throws Exception {
 
         final HttpGet request = new HttpGet(url);
         addHeaders(request);
@@ -31,11 +30,9 @@ public class ApacheHttpClient {
         }
 
         final MyObjectMapper myObjectMapper = new MyObjectMapper();
-        final Serializable getAccountsResponse = myObjectMapper.unMarshal(response.getEntity(), clazz);
+        final Object entity = myObjectMapper.unMarshal(response.getEntity(), clazz);
 
-        final ResponseBuilder jsonResponse = Response.ok(response);
-        jsonResponse.entity(getAccountsResponse);
-        return jsonResponse.build();
+        return Response.ok(entity).build();
 
     }
 

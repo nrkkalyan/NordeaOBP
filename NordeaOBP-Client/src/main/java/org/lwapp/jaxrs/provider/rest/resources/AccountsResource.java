@@ -1,12 +1,17 @@
 package org.lwapp.jaxrs.provider.rest.resources;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -33,7 +38,7 @@ public class AccountsResource {
 
     @Context
     private UriInfo uriInfo;
-    @Inject
+    @EJB
     private ApacheHttpClient apacheHttpClient;
 
     @GET
@@ -43,22 +48,29 @@ public class AccountsResource {
 
     @GET
     @Path("accounts")
-    public Response getAccounts() throws Exception {
+    public Response getAccounts(@QueryParam("bankName") final String bankName) throws Exception {
         return this.apacheHttpClient.get(NORDEAOBP_V1_ACCOUNTS_BASE_URL, GetAccountsResponse.class);
     }
 
     @GET
     @Path("accounts/{accountId}")
-    public Response getAccountsById(@PathParam("accountId") final String accountId) throws Exception {
+    public Response getAccountsById(@PathParam("accountId") final String accountId, @QueryParam("bankName") final String bankName) throws Exception {
         final String target = AccountsResource.NORDEAOBP_V1_ACCOUNTS_BASE_URL + accountId;
         return this.apacheHttpClient.get(target, GetAccountResponse.class);
     }
 
     @GET
     @Path("accounts/{accountId}/transactions")
-    public Response getTransactionsByAccountId(@PathParam("accountId") final String accountId) throws Exception {
+    public Response getTransactionsByAccountId(@PathParam("accountId") final String accountId, @QueryParam("bankName") final String bankName) throws Exception {
         final String target = AccountsResource.NORDEAOBP_V1_ACCOUNTS_BASE_URL + accountId + "/transactions";
         return this.apacheHttpClient.get(target, GetAccountTransactionsResponse.class);
+    }
+
+    @GET
+    @Path("banks")
+    public Response getBanks() throws Exception {
+        final List<String> banks = Stream.of("Nordea", "Swedbank").collect(Collectors.toList());
+        return Response.ok(banks, MediaType.APPLICATION_JSON).build();
     }
 
 }

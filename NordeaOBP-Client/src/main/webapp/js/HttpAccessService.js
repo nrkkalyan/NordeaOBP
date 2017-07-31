@@ -5,19 +5,13 @@
 	.service('HttpAccessService', HttpAccessService);
 
 	function HttpAccessService($http) {
-		var baseUrl = 'restapi/myfiles';
+		var baseUrl = 'restapi/aisp/';
 
-		this.getFileTransferForCustomer = function(senderId, direction, status, fileType, signerId, dateFrom, dateTo) {
-			console.log('thHttpService.getFileTransferForCustomer:',senderId, direction, status, fileType, signerId, dateFrom, dateTo);
-			return $http.get(baseUrl + '/getFileTransferForCustomer', {
+		this.getAccounts = function(bankName) {
+			console.log('thHttpService.getAccounts:',bankName);
+			return $http.get(baseUrl + 'accounts', {
 				params : {
-					"senderId" : senderId,
-					"direction" : direction,
-					"status" : status,
-					"fileType" : fileType,
-					"signerId" : signerId,
-					"dateFrom" : dateFrom,
-					"dateTo" : dateTo
+					"bankName" : bankName
 				},
 				headers: {
 					   'Accept': 'application/json'
@@ -25,30 +19,11 @@
 			});
 		}
 
-		this.getAvailableFiles = function(senderId, signerId, dateFrom, dateTo, action, fileType, serviceId, maxFiles) {
-			console.log('thHttpService.getAvailableFiles:',senderId, signerId, dateFrom, dateTo, action, fileType, serviceId, maxFiles);
-			return $http.get(baseUrl + '/getAvailableFiles', {
+		this.getAccountDetails = function(accountId, bankName) {
+			console.log('getAccountDetails accountId:' + accountId);
+			return $http.get(baseUrl + 'accounts/' + accountId, {
 				params : {
-					"senderId" : senderId,
-					"signerId" : signerId,
-					"dateFrom" : dateFrom,
-					"dateTo" : dateTo,
-					"action" : action,
-					"fileType" : fileType,
-					"serviceID" : serviceId,
-					"maxFiles" : maxFiles
-				},
-				headers: {
-					   'Accept': 'application/json'
-				}
-			});
-		}
-
-		this.getFileTransferDetails = function(internalTxnIdOrFileId) {
-			console.log('getFileTransferDetails internalTxnIdOrFileId:' + internalTxnIdOrFileId);
-			return $http.get(baseUrl + '/getFileTransferDetails', {
-				params : {
-					"fileId" : internalTxnIdOrFileId
+					"bankName" : bankName
 				},
 				headers: {
 					   'Accept': 'application/json'
@@ -56,11 +31,11 @@
 			});
 		}
 		
-		this.getFileHistoryDetails = function(fileId) {
-			console.log('getFileHistoryDetails fileId:' + fileId);
-			return $http.get(baseUrl + '/filehistory', {
+		this.getTransactions = function(accountId, bankName) {
+			console.log('getTransactions accountId:' + accountId);
+			return $http.get(baseUrl + 'accounts/' + accountId+ '/transactions', {
 				params : {
-					"fileId" : fileId
+					"bankName" : bankName
 				},
 				headers: {
 					   'Accept': 'application/json'
@@ -69,9 +44,9 @@
 		}
 		
 		
-		this.getFileTypes = function() {
-			console.log('getFileTypes');
-			return $http.get(baseUrl + '/filetypes', {
+		this.getBanks = function() {
+			console.log('getBanks');
+			return $http.get(baseUrl + 'banks', {
 				headers: {
 					   'Accept': 'application/json'
 				}

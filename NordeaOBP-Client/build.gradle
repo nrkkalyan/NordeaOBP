@@ -1,8 +1,8 @@
-apply plugin: 'java'
+apply plugin: 'war'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: 'signing'
-group = "org.lwapp.psd2"
+group = "org.lwapp.obp"
 
 version = '1.0.0-SNAPSHOT'
 
@@ -89,6 +89,7 @@ repositories {
 dependencies {
 	
 		compile group: 'org.lwapp.psd2', name: 'NordeaOBP-API', version: '1.0.0.M1'
+		compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
 	
 		compile (
                 'org.apache.commons:commons-lang3:3.4',

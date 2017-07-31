@@ -2,59 +2,74 @@
 	<head></head>
 	<body>
 		<div ng-controller="AccountsController">
-			<h4 style="color: rgb(0, 81, 131);">File Id :{{fileDetails.fileID}} </h4>
+			<h4 style="color: rgb(0, 81, 131);">Account Id :{{accountInfoDetails.response.id}} </h4>
 			<table class="searchresult">
 				<tbody>
 					<tr>
-						<td style="vertical-align: top; width: 500px;"><b style="color: rgb(0, 81, 131);">Date</b>: {{formatDate(fileDetails.bookDate,'DD.MM.YYYY')}}
-						<br>
-						<b style="color: rgb(0, 81, 131);">Name</b>: {{fileDetails.serviceIDName}}
-						<br>
-						<b style="color: rgb(0, 81, 131);">Reference</b>: {{fileDetails.fileReference}}
-						<br>
+						<td style="vertical-align: top; width: 500px;"><b style="color: rgb(0, 81, 131);">Date</b>: {{accountInfoDetails.response.account.latestTransactionBookingDate}}
+							<br>
+							<b style="color: rgb(0, 81, 131);">CreditLimit</b>: {{accountInfoDetails.response.account.creditLimit}} {{accountInfoDetails.response.account.currency}}
+							<br>
 						</td>
-						<td style="vertical-align: top; width: 500px;"><b style="color: rgb(0, 81, 131);">Information</b>: {{fileDetails.information}}
-						<br>
+						<td style="vertical-align: top; width: 500px;"><b style="color: rgb(0, 81, 131);">Owner Information</b>: {{accountInfoDetails.response.account.owner.name}}
+							<br>
+							<b style="color: rgb(0, 81, 131);">Status</b>: {{accountInfoDetails.response.account.status}}
+							<br>
+							<b style="color: rgb(0, 81, 131);">Type</b>: {{accountInfoDetails.response.account.type}}
+							<br>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 
-			<h4 style="color: rgb(0, 81, 131);">Technical Information:</h4>
+			<h4 style="color: rgb(0, 81, 131);">FinancialInstitution Information:</h4>
 			<table class="searchresult">
 				<tbody>
 					<tr>
-						<td style="vertical-align: top;"><b style="color: rgb(0, 81, 131);">Internal transaction ID</b>: {{fileDetails.internalTxnID}}
+						<td style="vertical-align: top;"><b style="color: rgb(0, 81, 131);">Message Identification</b>: {{accountInfoDetails.groupHeader.messageIdentification}}
 						<br>
-						<b style="color: rgb(0, 81, 131);">Last updated status</b>: {{fileDetails.lastUpdatedStatus}}
+						<b style="color: rgb(0, 81, 131);">BIC</b>: {{accountInfoDetails.response.financialInstitution.bic}}
 						<br>
-						<b style="color: rgb(0, 81, 131);">Last updated time</b>: {{formatDate(fileDetails.lastUpdatedTime ,'DD.MM.YYYY HH:mm')}}
+						<b style="color: rgb(0, 81, 131);">Country</b>: {{accountInfoDetails.response.financialInstitution.country}}
 						<br>
-						<b style="color: rgb(0, 81, 131);">Creation time</b>: {{formatDate(fileDetails.creationTime ,'DD.MM.YYYY HH:mm')}}
+						<b style="color: rgb(0, 81, 131);">Name</b>: {{accountInfoDetails.response.financialInstitution.name}}
 						<br>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-
-			<div ng-if="fileDetails.fileID">
-				<button ng-click="getFileHistoryDetails(fileDetails.fileID)">
+			<h4 style="color: rgb(0, 81, 131);">Balances:</h4>
+			<table class="searchresult">
+				<tr>
+					<th>Amount</th>
+					<th>Type</th>
+				</tr>
+				<tr ng-repeat="bal in accountInfoDetails.response.balances | orderBy:'type':true">
+					<td>{{bal.amount}}</td>
+					<td>{{bal.type}}</td>
+				</tr>
+			</table>
+ 
+			<div ng-if="accountInfoDetails.response.id">
+				<button ng-click="getTransactions(accountInfoDetails.response.id)">
 					Show TransactionHistory
 				</button>
 
 				<table class="searchresult">
 
 					<tr>
-						<th>Date</th>
-						<th>TransactionID</th>
-						<th>Action</th>
-
+						<th>TxnId</th>
+						<th>EntryReference</th>
+						<th>Amount</th>
+						<th>BookingDate</th>
+						<th>ValueDate</th>
 					</tr>
-					<tr ng-repeat="fhd in fileHistoryDetails | orderBy:'fhTimestamp':true">
-						<td>{{formatDate(fhd.fhTimestamp,'DD.MM.YYYY HH:mm')}}</td>
-						<td>{{fhd.communicationMethod}}</td>
-						<td>{{fhd.procStep}}</td>
-
+					<tr ng-repeat="txn in transactionsList.response.transactions">
+						<td>{{txn.id}}</td>
+						<td>{{txn.entryReference}}</td>
+						<td>{{txn.amount.value}} {{txn.amount.currency}}</td>
+						<td>{{txn.bookingDate.date}}</td>
+						<td>{{txn.valueDate.date}}</td>
 					</tr>
 				</table>
 

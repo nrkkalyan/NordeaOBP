@@ -5,175 +5,106 @@
 			[ 'HttpAccessService', 'ngDialog' ])//
 	.controller('AccountsController', AccountsController);
 
-	function AccountsController($scope, $window, $http, $filter, HttpAccessService, ngDialog,
+	function AccountsController($scope, $window, $http, $timeout, $filter, HttpAccessService, ngDialog,
 			ngProgressFactory) {
 		$scope.errorMessage = "";
-		$scope.th = [];
-		$scope.fileHistoryDetails = [];
-		$scope.fileTypes = [];
+		$scope.accountsList = [];
+		$scope.transactionsList = [];
+		$scope.availableBanks = [];
+		$scope.selectedBank = "";
 		$scope.isDisabled = false;
 		var now = new Date();
 		$scope.dateFrom = $filter("date")(
 				now.getTime() - 7 * 24 * 60 * 60 * 1000, 'dd.MM.yyyy');
 		$scope.dateTo = $filter("date")(now.getTime(), 'dd.MM.yyyy');
-		$scope.disableSignerId = true;
-		$scope.disableServiceId = true;
-		$scope.submitedFileType = "";
 		
 		
-		$scope.showSigner = function() {
-	        var validValues = ['NDCAPXMLI', 'NDCAPXMLO', 'NDCAPXMLD54O', 'NDCAPCANXMLI', 'NDCAPCANXMLO'];
-	        for (var i = 0; i < validValues.length; i++) {
-	          if ($scope.submitedFileType == validValues[i]) {
-	            return true;
-	          }
-	        }
-	        return false;
-	    }
-
-	    $scope.showService = function() {
-	        var validValues = ['NDARSTXMLO','NDAREXXMLO', 'NDARCRAXMLO', 'NDARCRSXMLO', 'NDARCRUXMLO', 'NDARDEAXMLO', 'NDARDEBPXMLO', 'NDARDESAXMLO', 'NDSWMT940O', 'NDSWMT941O', 'NDSWMT942O'];
-	        for (var i = 0; i < validValues.length; i++) {
-	          if ($scope.submitedFileType == validValues[i]) {
-	            return true;
-	          }
-	        }
-	        return false;
-	    }
-
-
-		$scope.getAvailableFiles = function(senderId, signerId, dateFrom, dateTo, action, fileType, serviceId, maxFiles) {
-			console.log('AccountsController.getAvailableFiles:', senderId, dateFrom, dateTo, action, fileType, serviceId, maxFiles);
+		$scope.getAccounts = function(bankName, dateFrom) {
+			console.log('AccountsController.getAccounts:', bankName, dateFrom);
 			$scope.isDisabled = true;
 			$scope.errorMessage = "";
+			$scope.selectedBank = bankName;
 			$scope.contained_progressbar = ngProgressFactory.createInstance();
 			$scope.contained_progressbar.start();
-			$scope.submitedFileType = fileType;
 			HttpAccessService
-					.getAvailableFiles(senderId, signerId, dateFrom, dateTo, action, fileType, serviceId, maxFiles)
+					.getAccounts(bankName)
 					.success(
 							function(data) {
 								console.log('Response:', data);
-								if (data.TransmissionFileError != null) {
-									$scope.errorMessage = data.TransmissionFileError.errorMessage;
-									$scope.th = [];
-								} else {
-									$scope.th = data;
-									$scope.errorMessage = "";
-								}
+								$scope.accountsList = data;
 							})
 					.error(
 							function(error) {
 								console.log('errorMessage: ', error);
-								if (error.TransmissionFileError != null) {
-									$scope.errorMessage = error.TransmissionFileError.errorMessage;
-								} else {
-									$scope.errorMessage = error.errorMessage
-											|| "Request failed";
-								}
-								$scope.th = [];
+								$scope.errorMessage = error
+								$scope.accountsList = [];
 							});
 			$scope.isDisabled = false;
 			$scope.contained_progressbar.complete();
-			console.log('getAvailableFiles  done');
+			console.log('getAccounts  done');
 		}
 
-		$scope.showFileDetails = function(fileId) {
+		$scope.showAccountDetails = function(accountId) {
 			$scope.errorMessage = "";
-			console.log('showFileDetails', fileId);
+			console.log('showAccountDetails', accountId, $scope.selectedBank);
 			HttpAccessService
-					.getFileTransferDetails(fileId)
+					.getAccountDetails(accountId, $scope.selectedBank)
 					.success(
 							function(data) {
-								$scope.fileDetails = data.TransmissionDetails;
-								ngDialog.open({
-									template : 'partials/filedetails.html',
+								console.log('showAccountDetails: ', data);
+								$scope.accountInfoDetails = data;
+								console.log('showAccountDetails.accountInfoDetails: ', $scope.accountInfoDetails);
+								var dialog = ngDialog.open({
+									template : 'partials/accountdetails.html',
 									scope : $scope
 								});
-								console.log('showFileDetails: ',
-										data.TransmissionDetails);
+								dialog.closePromise.then(function(data) {
+									console.log('ngDialog close promise: reloading the page.');
+									$scope.getAccounts($scope.bankName, $scope.dateFrom);
+								    return true;
+								});
 							})
 					.error(
 							function(error) {
 								console.log('errorMessage: ', error);
-								if (error.TransmissionDetailsError != null) {
-									$scope.errorMessage = error.TransmissionDetailsError.errorMessage;
-								} else {
-									$scope.errorMessage = error.errorMessage
-											|| "Request failed";
-								}
+								$scope.errorMessage = error;
+								$scope.accountInfoDetails = [];
 							});
 		}
 		
-		
-		$scope.showMT = function(mtLink) {
+		$scope.getTransactions = function(accountId) {
 			$scope.errorMessage = "";
-			console.log('showMT', mtLink);
-			$window.open(mtLink, "popup", "resizable=yes,width=800,height=800,left=10,top=150");
-		}
-
-		$scope.getFileHistoryDetails = function(fileId) {
-			$scope.errorMessage = "";
-			console.log('getFileHistoryDetails', fileId);
+			console.log('getTransactions', accountId, $scope.selectedBank);
 			HttpAccessService
-					.getFileHistoryDetails(fileId)
+					.getTransactions(accountId, $scope.selectedBank)
 					.success(function(data) {
-						$scope.fileHistoryDetails = data.fileHistoryDetails;
-						console.log('getFileHistoryDetails: ', data);
+						$scope.transactionsList = data;
+						console.log('getTransactions: ', data);
 					})
 					.error(
 							function(error) {
 								console.log('errorMessage: ', error);
-								if (error.fileDetailsError != null) {
-									$scope.errorMessage = error.fileDetailsError.errorMessage;
-								} else {
-									$scope.errorMessage = error.errorMessage
-											|| "Request failed";
-								}
+								$scope.errorMessage = error;
+								$scope.transactionsList = [];
 							});
 		}
 
-		$scope.loadFileTypes = function() {
+		$scope.loadAvailableBanks = function() {
 			$scope.errorMessage = "";
-			console.log('getFileTypes');
+			console.log('loadAvailableBanks');
 			HttpAccessService
-					.getFileTypes()
+					.getBanks()
 					.success(function(data) {
-						$scope.fileTypes = data;
-						console.log('getFileTypes: ', data);
+						$scope.availableBanks = data;
+						console.log('availableBanks: ', data);
 					})
 					.error(
 							function(error) {
 								console.log('errorMessage: ', error);
-								if (error.fileDetailsError != null) {
-									$scope.errorMessage = error.fileDetailsError.errorMessage;
-								} else {
-									$scope.errorMessage = error.errorMessage
-											|| "Request failed";
-								}
+								$scope.errorMessage = error;
 							});
 		}
 
-		$scope.onFileTypeComboBoxChanged = function(fileType) {
-			$scope.signerId = "";
-			$scope.serviceId = "";
-			
-			if (fileType == undefined) {
-				$scope.disableSignerId = true;
-				$scope.disableServiceId = true;
-			} else {
-				
-				$scope.disableSignerId = !(fileType == 'NDCAPXMLI'
-						|| fileType == 'NDCAPXMLO'
-						|| fileType == 'NDCAPXMLD54O'
-						|| fileType == 'NDCAPCANXMLI' 
-						|| fileType == 'NDCAPCANXMLO');
-				
-				$scope.disableServiceId = !$scope.disableSignerId;
-			}
-
-		}
-		
 		$scope.formatDate = function(input,pattern) {
 			if(input != null){
 				return moment(input,"YYYYMMDD HH:mm").format(pattern);
